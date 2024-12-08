@@ -1,0 +1,17 @@
+{
+  "name": "trylam",
+  "version": "0.1.1",
+  "main": "trylam.js",
+  "scripts": {
+    "test": "echo \"I like your style, but no.\" && exit 1"
+  },
+  "keywords": ["lambda", "cloud"],
+  "type":"module",
+  "author": "Tim Crowley",
+  "license": "MIT",
+  "description": "Run a Lambda function locally before you run it in the cloud",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1"
+  }
+}

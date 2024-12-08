@@ -1,0 +1,23 @@
+logs
+*.log
+.DS_Store
+.vscode
+node_modules
+test/
+*.spec.js
+*.test.js
+dist/
+build/
+.env
+.env.local
+*.local.env
+*.example.env
+!README.md
+
+# Ignore everything in the root except these files
+/*
+!trylam.js
+!/lib/
+!/package.json
+!/README.md
+!/LICENSE
