@@ -58,6 +58,13 @@ A typical setup involves doing the following:
     curl --request POST --url http://localhost:9000/ --data '{ "key1": "value1", "key2": [ "item21","item22"]}'
     ```
 
+## How do I Build/Publish it?
+
+From the root directory:
+1. Bump the version number in `package.json`
+2. Run `npm pack`
+3. Run `npm publish --registry http://localhost:4873`
+
 ## Then what?
 
 I'm not sure, but I'll say this. The next step is NOT to add infrastructure deployment code to this library.

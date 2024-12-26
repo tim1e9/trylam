@@ -1,6 +1,6 @@
 {
   "name": "trylam",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "trylam.js",
   "scripts": {
     "test": "echo \"I like your style, but no.\" && exit 1"

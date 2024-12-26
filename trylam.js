@@ -45,7 +45,7 @@ const invokeLambda = async (reqBody) => {
 // Create a server and listen for HTTP POST requests
 import { createServer } from 'http';
 const server = createServer( async (req, res) => {
-  if (req.method == 'POST' && req.url == '/') {
+  if (req.method == 'POST' && req.url == '/2015-03-31/functions/function/invocations') {
     let body = '';
     req.on('data', part=> body += part.toString());
     req.on('end', async () => {
