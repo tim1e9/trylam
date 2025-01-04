@@ -51,7 +51,7 @@ const server = createServer( async (req, res) => {
     req.on('end', async () => {
       if (lambdaHandler) {
         try {
-          const invocationResponse = await invokeLambda(body);
+          const invocationResponse = await invokeLambda(JSON.parse(body));
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify(invocationResponse));
         } catch(exc) {
