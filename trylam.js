@@ -5,14 +5,14 @@ let lambdaHandler = null;
 
 // A lambda handler string is specified as: filename.methodname
 // Extract the details from the handler and load the appropriate function
-const loadHandler = async (handlerDetails) => {
+const loadHandler = async (entryPoint, pathFromProjectRoot, fileExtension) => {
   try {
-    [lambdaHandlerFileName, lambdaHandlerFunctionName] = handlerDetails.split(".");
+    [lambdaHandlerFileName, lambdaHandlerFunctionName] = entryPoint.split(".");
     // This generally runs in /node_modules/, so look in the root
-    lambdaFile = await import(`../../${lambdaHandlerFileName}.js`);
+    lambdaFile = await import(`../../${pathFromProjectRoot}/${lambdaHandlerFileName}${fileExtension}`);
     lambdaHandler = lambdaFile[lambdaHandlerFunctionName];
   } catch(exc) {
-    const msg = `Unable to load the Lambda handler: ${handlerDetails}`;
+    const msg = `Unable to load the Lambda handler: ${entryPoint}`;
     console.error(msg);
     throw new Error(msg);
   }
@@ -44,6 +44,7 @@ const invokeLambda = async (reqBody) => {
 
 // Create a server and listen for HTTP POST requests
 import { createServer } from 'http';
+import path from 'path';
 const server = createServer( async (req, res) => {
   if (req.method == 'POST' && req.url == '/2015-03-31/functions/function/invocations') {
     let body = '';
@@ -76,6 +77,13 @@ if (process.argv.length < 3) {
 
 server.listen(port, host, async () => {
   console.log(`Hello, trylam is listening here: http://${host}:${port}`);
-  await loadHandler(process.argv[2]);
+  const entryPoint = process.argv[2];
+  const pathFromProjectRoot = (process.argv.length > 3) ? process.argv[3] : ".";
+  let fileExtension = ".js";
+  if (process.argv.length > 4) {
+    fileExtension = process.argv[4] == 'NONE' ? '' : process.argv[4];
+  }
+  console.log(`Entry point: ${entryPoint} Path: ${pathFromProjectRoot} File extension: ${fileExtension}`)
+  await loadHandler(entryPoint, pathFromProjectRoot, fileExtension);
   console.log(`Lambda function loaded and ready for action`);
 });

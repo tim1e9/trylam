@@ -20,6 +20,18 @@ A typical setup involves doing the following:
     ```
    Where `index.handler` is the Lambda file name and function name respectively.
 
+   **NOTE:** Two additional optional parameters can be specified:
+    - Argument 2: The path to the Lambda entrypoint. This can be useful if the
+      function is not in the root directory of the project.
+      Do not include leading or trailing slashes (/)
+    - Arrgument 3: The file extension. By default `.js` is used. To set to blank,
+      pass the string "NONE".
+
+    A full invocation may look like the following:
+    ```
+    node ./node_modules/trylam/trylam.js index.handler src/lambdas .ts
+    ```
+
 3. To invoke Trylam, make an HTTP call on port 9000 (the default port). For example:
     ```
     curl --request POST --url http://localhost:9000/ --data '{ "key1": "value1", "key2": [ "item21","item22"]}'
@@ -55,7 +67,7 @@ A typical setup involves doing the following:
 
    Set a breakpoint in the Lambda handler, and invoke the function via a curl call:
     ```
-    curl --request POST --url http://localhost:9000/ --data '{ "key1": "value1", "key2": [ "item21","item22"]}'
+    curl --request POST --url http://localhost:9000/2015-03-31/functions/function/invocations --data '{ "key1": "value1", "key2": [ "item21","item22"]}'
     ```
 
 ## How do I Build/Publish it?
